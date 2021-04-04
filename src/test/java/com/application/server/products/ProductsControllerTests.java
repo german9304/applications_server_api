@@ -30,7 +30,7 @@ public class ProductsControllerTests {
     private ProductsService productsService;
 
     @Test
-    public void itShouldResponWithOkStatusWhenProductsExists() throws Exception {
+    public void itShouldRespondWithOkStatusWhenProductsExists() throws Exception {
         List<Product> products = new ArrayList<>();
         products.add(new Product("1233", "3333", "jeans", true));
         when(productsService.products()).thenReturn(Optional.of(products));
