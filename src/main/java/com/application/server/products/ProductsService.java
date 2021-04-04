@@ -1,5 +1,6 @@
 package com.application.server.products;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductsService {
@@ -8,5 +9,5 @@ public interface ProductsService {
 
     String create(Product product);
 
-    Optional<Product> products();
+    Optional<List<Product>> products();
 }

@@ -13,10 +13,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(HealthController.class)
 public class HealthControllerTests {
 
+    private final String uri = "/api/health";
+
     @Autowired
     private MockMvc mockMvc;
-
-    private final String uri = "/api/health";
 
     @BeforeEach
     void beforeEach() {

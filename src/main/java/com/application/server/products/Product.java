@@ -8,6 +8,7 @@ import lombok.Data;
 public class Product {
 
     private String id;
-    private int price;
+    private String price;
     private String name;
+    private boolean purchased;
 }
