@@ -30,10 +30,16 @@ public class ProductsControllerTests {
     private ProductsService productsService;
 
     @Test
-    public void itShouldRespondWithOkStatusWhenProductsExists() throws Exception {
+    public void shouldRespondWithOkStatusWhenProductsExists() throws Exception {
         List<Product> products = new ArrayList<>();
         products.add(new Product("1233", "3333", "jeans", true));
         when(productsService.products()).thenReturn(Optional.of(products));
         this.mockMvc.perform(get(url)).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    public void shouldRespondWithNotFoundStatusWhenProductsListIsEmpty() throws Exception{
+        when(productsService.products()).thenReturn(Optional.empty());
+        this.mockMvc.perform(get(url)).andExpect(status().isNotFound()).andExpect(jsonPath("$").isArray());
     }
 }

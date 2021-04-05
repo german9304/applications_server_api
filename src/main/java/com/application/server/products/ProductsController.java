@@ -37,7 +37,7 @@ public class ProductsController {
         var products = this.productsService.products();
         if(products.isEmpty()) {
             List<Product> emptyProducts = List.of();
-            return ResponseEntity.status(HttpStatus.OK).body(emptyProducts);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(emptyProducts);
         }
         return ResponseEntity.status(HttpStatus.OK).body(products.get());
     }
