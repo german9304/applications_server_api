@@ -17,9 +17,9 @@ public class ProductsController {
     @Autowired
     private ProductsService productsService;
 
-    private final String api = "/api/products/";
+    private final String api = "/api/products";
 
-    @PostMapping(api + "create")
+    @PostMapping(api + "/create")
     public ResponseEntity<String> createProduct(
             @RequestParam("locale") String locale,
             @RequestBody Product product

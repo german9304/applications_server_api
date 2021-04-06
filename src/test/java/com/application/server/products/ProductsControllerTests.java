@@ -21,7 +21,7 @@ import java.util.Optional;
 @WebMvcTest(ProductsController.class)
 @ActiveProfiles("dev")
 public class ProductsControllerTests {
-    private final String url = "/api/products/";
+    private final String url = "/api/products";
 
     @Autowired
     MockMvc mockMvc;
