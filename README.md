@@ -6,4 +6,11 @@
 * Redis
 * Postgresql
 
+**TESTING**
+
+`mvn test`
+
+## Profiles
+
+dev `-Dspring.profiles.active=dev`
 

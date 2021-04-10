@@ -18,6 +18,23 @@ public class ProductsController {
 
     private final String api = "/api/products";
 
+    /**
+     * API Endpoint to add a product row to the database.
+     *
+     * Request accepts a body as JSON with the product to be created:
+     * Example:
+     *   {
+     *      id: "2222";
+     *      price: "300";
+     *      name: "user";
+     *      purchased: false;
+     *   }
+     *
+     * @param product product model
+     * @return ResponseEntity
+     *  BAD REQUEST status when product could not be created
+     *  OK status when product gets created
+     */
     @PostMapping(api + "/create")
     public ResponseEntity<String> createProduct(@RequestBody Product product) {
         try {
@@ -31,9 +48,11 @@ public class ProductsController {
     }
 
     /**
-     * Fetch products
+     * API Endpoint to fetch a list of products
      *
      * @return
+     *  NOT_FOUND status when products do not exists
+     *  OK status when products exists
      */
     @GetMapping(api)
     public ResponseEntity<List<Product>> getProducts() {
