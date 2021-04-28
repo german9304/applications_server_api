@@ -13,10 +13,19 @@ import java.util.List;
 @Slf4j
 public class ProductsController {
 
+    private final String api = "/api/products";
+
     @Autowired
     private ProductsService productsService;
 
-    private final String api = "/api/products";
+    @PostMapping(api + "/update")
+    public ResponseEntity<Product> updateProduct(
+            @RequestBody Product product,
+            @RequestParam("id") String id
+    ) {
+        this.productsService.update(id, product);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+    }
 
     /**
      * API Endpoint to add a product row to the database.
