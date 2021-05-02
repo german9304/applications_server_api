@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +31,13 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Product update(String id, Product product) {
-        var result = this.productRepository.update(
+        Product result = this.productRepository.update(
                 product.getName(),
                 product.getPrice(),
                 product.isPurchased(),
                 id
         );
-        log.info("price " + result.getPrice());
-        return null;
+        return result;
     }
 
     @Override
