@@ -1,16 +1,16 @@
 package com.application.server.products;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ProductsServiceImpl implements ProductsService {
 
     @Autowired
@@ -21,7 +21,23 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Optional<Product> findById(String id) {
-        return Optional.empty();
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            log.info("product does not eixsts");
+            return Optional.empty();
+        }
+        return optionalProduct;
+    }
+
+    @Override
+    public Product update(String id, Product product) {
+        Product result = this.productRepository.update(
+                product.getName(),
+                product.getPrice(),
+                product.isPurchased(),
+                id
+        );
+        return result;
     }
 
     @Override

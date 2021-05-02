@@ -14,4 +14,6 @@ public interface ProductsService {
     Product create(Product product) throws Exception;
 
     Optional<List<Product>> products();
+
+    Product update(String id, Product product);
 }

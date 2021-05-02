@@ -2,23 +2,21 @@ package com.application.server.products;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import jdk.jfr.ContentType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +64,8 @@ public class ProductsControllerTests {
     }
 
     @Test
-    public void shouldThrowException() throws Exception {
+    @DisplayName("product create")
+    public void shouldThrowExceptionWhenCreatingAProduct() throws Exception {
         Product newProduct = new Product("111", "200", "jeans", false);
         when(productsService.create(newProduct)).thenThrow(new Exception(""));
         ObjectMapper mapper = new ObjectMapper();
@@ -78,5 +77,22 @@ public class ProductsControllerTests {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("could not save product"));
+    }
+
+    @Test
+    @DisplayName("product update")
+    public void shouldRespondWith200StatusWhenUpdatingProduct() throws Exception{
+        String productId = "1234";
+        Product newProduct = new Product("111", "200", "jeans", false);
+        when(productsService.update(productId,newProduct)).thenReturn(newProduct);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer();
+        String jsonProduct = writer.writeValueAsString(newProduct);
+        this.mockMvc.perform(
+                put(url + "/update?id=" + productId)
+                        .content(jsonProduct)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().isOk());
     }
 }
